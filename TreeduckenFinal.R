@@ -64,21 +64,14 @@ dat <- read_excel("C:/Users/timbr/Paleobiology/SymbCophy/TREEvsJane.xlsx",
                          sheet = "Tabelle2")
 View(dat)
 
-GID1 <- subset(dat, Dataset == "GID1")
-GID2 <- subset(dat, Dataset == "GID2")
-GID3 <- subset(dat, Dataset == "GID3")
-GID4 <- subset(dat, Dataset == "GID4")
-JT1 <- subset(dat, Dataset == "JT1")
-JT2 <- subset(dat, Dataset == "JT2")
-JT3 <- subset(dat, Dataset == "JT3")
-JT4 <- subset(dat, Dataset == "JT4")
-Pi1 <- subset(dat, Dataset == "Pi1")
-Pi2 <- subset(dat, Dataset == "Pi2")
-Pi3 <- subset(dat, Dataset == "Pi3")
-Pi4 <- subset(dat, Dataset == "Pi4")
-Ninetofive1 <- subset(dat, Dataset == "925_1")
-Ninetofive2 <- subset(dat, Dataset == "925_2")
-Ninetofive3 <- subset(dat, Dataset == "925_3")
-Ninetofive4 <- subset(dat, Dataset == "925_4")
+attach(dat)
+
+par(mfrow=c(2,2))
+barplot(formula = (CSP-Cospeciation) ~ Dataset, data=dat, ylab = "Δ Cospeciation", col = "purple")
+barplot(formula = (SSP-Duplication) ~ Dataset, data=dat, ylab ="Δ Symbiont speciation", col = "blue")
+barplot(formula = (SHE-HostSwitch) ~ Dataset, data=dat, ylab ="Δ Host Switching", col = "green")
+barplot(formula = (HSP-Failure2Diverge) ~ Dataset, data=dat, ylab= "Δ Host Switching", col = "red" )
+
+
 
 
