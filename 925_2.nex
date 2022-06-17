@@ -1,0 +1,22 @@
+#Nexus
+BEGIN HOST;
+TREE * host = (((2,3),1),((4,5),((7,8),6)));
+ENDBLOCK;
+
+BEGIN PARASITE;
+TREE * Symb = ((1,(2,3)),((5,6),4));
+ENDBLOCK;
+
+BEGIN DISTRIBUTION;
+RANGE
+1:2,
+2:4,
+2:6,
+3:3,
+3:5,
+4:6,
+5:1,
+5:7,
+6:8,
+;
+END;
