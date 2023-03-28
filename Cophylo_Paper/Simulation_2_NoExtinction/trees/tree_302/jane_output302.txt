@@ -1,0 +1,198 @@
+Best Timing:
+Time: 0 Node: Dummy Root
+Time: 1 Node: 15 Name: 15`
+Time: 2 Node: 16 Name: 16
+Time: 3 Node: 13 Name: 13`
+Time: 4 Node: 11 Name: 11`
+Time: 5 Node: 10 Name: 10`
+Time: 6 Node: 8 Name: 8`
+Time: 7 Node: 7 Name: 7`
+Time: 8 Node: 4 Name: 4`
+Time: 9 Node: H4
+Time: 9 Node: H9
+Time: 9 Node: H13
+Time: 9 Node: H14
+Time: 9 Node: H11
+Time: 9 Node: H12
+Time: 9 Node: H10
+Time: 9 Node: H8
+Time: 9 Node: H7
+Host Tree:
+Number of nodes: 17, Number of tips: 9
+(15) -> 0; Name: H4 --> (-1) (-1); 
+(11) -> 1; Name: H9 --> (-1) (-1); 
+(4) -> 2; Name: H13 --> (-1) (-1); 
+(4) -> 3; Name: H14 --> (-1) (-1); 
+(8) -> 4; Name: 4` --> (2) (3); 
+(7) -> 5; Name: H11 --> (-1) (-1); 
+(7) -> 6; Name: H12 --> (-1) (-1); 
+(8) -> 7; Name: 7` --> (5) (6); 
+(10) -> 8; Name: 8` --> (4) (7); 
+(10) -> 9; Name: H10 --> (-1) (-1); 
+(11) -> 10; Name: 10` --> (8) (9); 
+(13) -> 11; Name: 11` --> (1) (10); 
+(13) -> 12; Name: H8 --> (-1) (-1); 
+(16) -> 13; Name: 13` --> (11) (12); 
+(16) -> 14; Name: H7 --> (-1) (-1); 
+(-1) -> 15; Name: 15` --> (0) (16); Polytomy group: 0
+(15) -> 16; Name: 16 --> (13) (14); Polytomy group: 0
+Parasite Tree:
+Number of nodes: 21, Number of tips: 11
+(19) -> 0; Name: S2 --> (-1) (-1); 
+(11) -> 1; Name: S4 --> (-1) (-1); 
+(4) -> 2; Name: S10 --> (-1) (-1); 
+(4) -> 3; Name: S11 --> (-1) (-1); 
+(8) -> 4; Name: 4` --> (2) (3); 
+(7) -> 5; Name: S8 --> (-1) (-1); 
+(7) -> 6; Name: S9 --> (-1) (-1); 
+(8) -> 7; Name: 7` --> (5) (6); 
+(10) -> 8; Name: 8` --> (4) (7); 
+(10) -> 9; Name: S5 --> (-1) (-1); 
+(11) -> 10; Name: 10` --> (8) (9); 
+(13) -> 11; Name: 11` --> (1) (10); 
+(13) -> 12; Name: S3 --> (-1) (-1); 
+(17) -> 13; Name: 13` --> (11) (12); 
+(16) -> 14; Name: S6 --> (-1) (-1); 
+(16) -> 15; Name: S7 --> (-1) (-1); 
+(17) -> 16; Name: 16` --> (14) (15); 
+(20) -> 17; Name: 17` --> (13) (16); 
+(20) -> 18; Name: S1 --> (-1) (-1); 
+(-1) -> 19; Name: 19` --> (0) (20); Polytomy group: 0
+(19) -> 20; Name: 20 --> (17) (18); Polytomy group: 0
+
+Best Solution:
+==================================
+Parasite Node: S2
+Association type: Tip
+Host: H4
+Event Time: 9
+Subtree Cost: 0
+--------------------------
+Parasite Node: S4
+Association type: Tip
+Host: H9
+Event Time: 9
+Subtree Cost: 0
+--------------------------
+Parasite Node: S10
+Association type: Tip
+Host: H13
+Event Time: 9
+Subtree Cost: 0
+--------------------------
+Parasite Node: S11
+Association type: Tip
+Host: H14
+Event Time: 9
+Subtree Cost: 0
+--------------------------
+Parasite Node: 4`
+Association type: Cospeciation
+Host: 4`
+Event Time: 8
+Subtree Cost: 0
+--------------------------
+Parasite Node: S8
+Association type: Tip
+Host: H11
+Event Time: 9
+Subtree Cost: 0
+--------------------------
+Parasite Node: S9
+Association type: Tip
+Host: H12
+Event Time: 9
+Subtree Cost: 0
+--------------------------
+Parasite Node: 7`
+Association type: Cospeciation
+Host: 7`
+Event Time: 7
+Subtree Cost: 0
+--------------------------
+Parasite Node: 8`
+Association type: Cospeciation
+Host: 8`
+Event Time: 6
+Subtree Cost: 0
+--------------------------
+Parasite Node: S5
+Association type: Tip
+Host: H10
+Event Time: 9
+Subtree Cost: 0
+--------------------------
+Parasite Node: 10`
+Association type: Cospeciation
+Host: 10`
+Event Time: 5
+Subtree Cost: 0
+--------------------------
+Parasite Node: 11`
+Association type: Cospeciation
+Host: 11`
+Event Time: 4
+Subtree Cost: 0
+--------------------------
+Parasite Node: S3
+Association type: Tip
+Host: H8
+Event Time: 9
+Subtree Cost: 0
+--------------------------
+Parasite Node: 13`
+Association type: Host Switch
+Host: (13`, 11`)
+Switch Target: (13`, H8)
+Event Time: 4
+Subtree Cost: 3
+--------------------------
+Parasite Node: S6
+Association type: Tip
+Host: H8
+Event Time: 9
+Subtree Cost: 0
+--------------------------
+Parasite Node: S7
+Association type: Tip
+Host: H8
+Event Time: 9
+Subtree Cost: 0
+--------------------------
+Parasite Node: 16`
+Association type: Duplication
+Host: (13`, H8)
+Event Time: 9
+Subtree Cost: 2
+--------------------------
+Parasite Node: 17`
+Association type: Cospeciation
+Host: 13`
+Event Time: 3
+Subtree Cost: 5
+--------------------------
+Parasite Node: S1
+Association type: Tip
+Host: H7
+Event Time: 9
+Subtree Cost: 0
+--------------------------
+Parasite Node: 19`
+Association type: Cospeciation
+Host: 15`
+Event Time: 1
+Subtree Cost: 5
+Cost Before Parasite Root: 0
+--------------------------
+Parasite Node: 20
+Association type: Cospeciation
+Host: 16
+Event Time: 2
+Subtree Cost: 5
+--------------------------
+Cospeciation: 8
+Duplication: 1
+Host Switch: 1
+Loss: 0
+Failure to Diverge: 0
+

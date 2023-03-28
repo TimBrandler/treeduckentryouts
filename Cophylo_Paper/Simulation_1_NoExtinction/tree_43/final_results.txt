@@ -1,4 +1,4 @@
-Cospeciation: 6
+Cospeciation: 3
 Duplication: 5
 Host Switch: 5
 Loss: 0

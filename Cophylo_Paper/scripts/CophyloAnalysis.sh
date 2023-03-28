@@ -14,15 +14,30 @@
 
 ### Jane
 
+dir=Simulation_2_NoExtinction/trees
+#dir=tests
 
-files=$(ls -l Simulation_1_NoExtinction/ | grep '^d' | wc -l)
-
-for i in $( seq 1 $files )
+files=$(ls $dir)
+#files=$(ls $dir)
+mkdir $dir/malformed_trees
+for i in $files
 do
 
-java -cp Jane.jar edu.hmc.jane.CLI Simulation_1_NoExtinction/tree_$i/jane$i.nex > Simulation_1_NoExtinction/tree_$i/jane_output$i.txt
+number=$(echo $i | sed 's/.*_//')
 
-tail -n 6 Simulation_1_NoExtinction/tree_$i/jane_output$i.txt > Simulation_1_NoExtinction/tree_$i/final_results.txt
+java -cp Jane.jar edu.hmc.jane.CLI $dir/$i/jane$number.nex > $dir/$i/jane_output$number.txt
+
+output=$(cat $dir/$i/jane_output$number.txt | wc -l | egrep -o '[0-9]+')
+
+if [[ $output < 1  ]];
+then
+mv $dir/$i $dir/malformed_trees/
+
+else
+
+tail -n 6 $dir/$i/jane_output$number.txt > $dir/$i/final_results.txt
+
+fi
 
 #echo $i
 done

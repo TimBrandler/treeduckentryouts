@@ -1,0 +1,6 @@
+Cospeciation: 8
+Duplication: 10
+Host Switch: 3
+Loss: 2
+Failure to Diverge: 0
+

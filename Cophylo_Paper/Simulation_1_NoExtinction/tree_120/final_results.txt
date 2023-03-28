@@ -1,5 +1,5 @@
-Cospeciation: 5
-Duplication: 4
+Cospeciation: 3
+Duplication: 1
 Host Switch: 4
 Loss: 0
 Failure to Diverge: 0

@@ -1,22 +1,27 @@
 #### Post Jane Analysis 
 
 # dummy file to get into
-Jane <- read.csv(paste0("Simulation_1_NoExtinction/tree_1/final_results.txt"), sep = ":", header = FALSE)
+Jane <- read.csv(paste0("Simulation_2_NoExtinction/trees/tree_1/final_results.txt"), sep = ":", header = FALSE)
 
-Sims <- list.files("Simulation_1_NoExtinction/")
+Sims <- gtools::mixedsort(list.files("Simulation_2_NoExtinction/trees/"))
 Sims <- Sims[2:length(Sims)]
 Final <- matrix(nrow=length(Sims), ncol=5)
 colnames(Final) <- Jane[,1]
+Final <- as.data.frame(Final)
+Final$NumHost <- "NA"
+Final$NumSym <- "NA"
+Final$NumAsso <- "NA"
 
 
-j=3
+
 
 for ( j in 1:length(Sims)){
 
-Jane <- read.csv(paste0("Simulation_1_NoExtinction/tree_",j,"/final_results.txt"), sep = ":", header = FALSE)
+number <- gsub("tree_", "",Sims[j])
+Jane <- read.csv(paste0("Simulation_2_NoExtinction/trees/",Sims[j],"/final_results.txt"), sep = ":", header = FALSE)
 rownames(Jane) <- Jane[,1]
 
-TreeD <- read.csv(paste0("Simulation_1_NoExtinction/tree_",j,"/events",j,".csv"))
+TreeD <- read.csv(paste0("Simulation_2_NoExtinction/trees/", Sims[j],"/events",number,".csv"))
 TreeD <- TreeD[,2:3]
 
 ### Tree to Jane 
@@ -45,6 +50,7 @@ rownames(Results) <- c("Jane", "TreeDucken")
 colnames(Results) <- event_names
 
 
+
 for (i in 1:length(event_names)){
 
 Results[1,event_names[i]] <- Jane[event_names[i],2]
@@ -58,12 +64,55 @@ Results[is.na(Results)] <- 0
 
 
 for ( i in 1:length(Results[1,])){
-Final[j,event_names[i]] <-Results[2,event_names[i]] - Results[1,event_names[i]] 
+Final[j,event_names[i]] <-Results[1,event_names[i]] - Results[2,event_names[i]] 
+
+}
+
+tree <-readRDS(paste0("Simulation_2_NoExtinction/trees/",Sims[j],"/tree",number,".rData"))
+Final [j, "NumHost"] <- length(tree$host_tree$tip.label)
+Final [j, "NumSym"] <- length(tree$symb_tree$tip.label)
+Final[j, "NumAsso"] <- length(which(tree$association_mat == 1))
 
 }
 
 
+#### plot in order of tree size 
+
+Final <- Final[order(as.numeric(Final$NumHost)),]
+
+events <- names(Final)
+events <- events[1:4]
+
+
+#### in order of Hosts 
+Final <- Final[order(as.numeric(Final$NumHost)),]
+par(mfrow=c(2,2))
+for ( i in 1:length(events)){
+  
+  barplot(Final[,events[i]], main = events[i])
 }
+
+#### in order of Sym 
+Final <- Final[order(as.numeric(Final$NumSym)),]
+par(mfrow=c(2,2))
+for ( i in 1:length(events)){
+  
+  barplot(Final[,events[i]], main = events[i])
+}
+
+#### num associations
+Final <- Final[order(as.numeric(Final$NumAsso)),]
+par(mfrow=c(2,2))
+for ( i in 1:length(events)){
+  
+  barplot(Final[,events[i]], main = events[i])
+}
+
+
+range(as.numeric(Final$NumHost))
+range(as.numeric(Final$NumSym))
+
+
 
 
 
