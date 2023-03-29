@@ -1,3 +1,16 @@
+#!/bin/sh
+ 
+# allocate 4 nodes
+#SBATCH --nodes=1
+#SBATCH --cpus-per-task=1
+#SBATCH --time=24:00:00
+#
+# job name
+#SBATCH --job-name=Jane$counter
+
+
+cd /home/woody/gwpa/gwpa005h/Cophylogenetic/Jane/
+
 ## 27.03.2023
 
 ## Laura and Brudi
@@ -8,13 +21,15 @@
 
 
 ### Rscript Simulation_Workflow
-
+ ## Generate our simulations using treeducken
+ 
+ Rscript scripts/Simulation_Workflow.r $n1 $n2 $n3 $counter $num_reps
 
 
 
 ### Jane
 
-dir=Simulation_2_NoExtinction/trees
+dir=Simulation_"$counter"_NoExtinction/trees
 #dir=tests
 
 files=$(ls $dir)

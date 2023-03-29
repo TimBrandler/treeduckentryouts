@@ -1,8 +1,79 @@
-setwd("Desktop/PhD/Cophylo/")
-setwd("treeduckentryouts/Cophylo_Paper/")
+#setwd("Desktop/PhD/Cophylo/")
+#setwd("treeduckentryouts/Cophylo_Paper/")
+
+#args[n]
+
+main <- function(){
+  args <- commandArgs(trailingOnly = TRUE)
 
 
-new_dir <- "Simulation_2_NoExtinction"
+
+  ## write.jane function
+
+
+write.jane <- function(cophyObject, file)
+{
+  
+  cat(paste("#NEXUS ","\n", sep = ""),
+      file = file, append = TRUE)
+  
+  
+  H_tree_file <- ape::unroot(cophyObject$host_tree)
+  S_tree_file <- ape::unroot(cophyObject$symb_tree)
+  
+  H_tree <- ape::write.tree(H_tree_file)
+  S_tree <- ape::write.tree(S_tree_file)
+  
+  
+  cat(paste("BEGIN HOST",";\n", sep = ""),
+      file = file, append = TRUE)
+  cat(paste("\ttree * HOST = ",H_tree,"\n", sep = ""),
+      file = file, append = TRUE)
+  
+  cat(paste("ENDBLOCK",";\n", sep = ""),
+      file = file, append = TRUE)
+  
+  
+  cat(paste("\n", "BEGIN PARASITE",";\n", sep = ""),
+      file = file, append = TRUE)
+  cat(paste("\ttree * PARA = ",S_tree,"\n", sep = ""),
+      file = file, append = TRUE)
+  
+  cat(paste("ENDBLOCK",";\n", sep = ""),
+      file = file, append = TRUE)
+  
+  aso_mat <- cophyObject$association_mat
+  
+  cat(paste("\n", "BEGIN DISTRIBUTION",";\n", sep = ""),
+      file = file, append = TRUE)
+  cat(paste("\tRANGE ","\n", sep = ""),
+      file = file, append = TRUE)
+  
+  
+  for (i in 1:length(rownames(aso_mat))){
+    temp <- aso_mat[i,]
+    for ( j in 1:length(temp)){
+      if ( temp[j] == 1) {
+        H <- rownames(aso_mat)[i]
+        S <- colnames(aso_mat)[j]
+        cat(paste("\t", "\t", S, ":", H,  ",\n", sep = ""),
+            file = file, append = TRUE)
+      }
+    }
+  }
+  
+  
+  cat(paste("\t",";\n", sep = ""),
+      file = file, append = TRUE)
+  cat(paste("END",";\n", sep = ""),
+      file = file, append = TRUE)
+  
+  
+} 
+
+dir_num <- args[4]  
+
+new_dir <- paste0("Simulation_",dir_num,"_NoExtinction")
 dir.create(new_dir)
 dir.create(paste0(new_dir,"/trees"))
 dir.create(paste0(new_dir,"/data"))
@@ -12,7 +83,7 @@ dir.create(paste0(new_dir,"/data"))
 #library(treeducken)
 
 
-numb_replicates <- 1000
+numb_replicates <- as.numeric(args[5])
 
 ### Constant Parameters
 host_mu <-  0  
@@ -24,15 +95,21 @@ host_lambda <- 1
 
 
 ### Changing Parameters
+symb_lambda <- args[1]
+cosp_rate <- args[2]
+host_shift_rate <- args[3]
+
+
 symb_lambda <- 1
-cosp_rate <- 2
-host_shift_rate <- 0
+cosp_rate <- 1
+host_shift_rate <- 1
 
 
 
 
 
-cophylo <- sim_cophyBD(hbr = host_lambda,
+
+cophylo <- treeducken::sim_cophyBD(hbr = host_lambda,
                        hdr = host_mu,
                        cosp_rate = cosp_rate,
                        host_exp_rate = host_shift_rate,
@@ -43,21 +120,8 @@ cophylo <- sim_cophyBD(hbr = host_lambda,
                        hs_mode = hs_mode,
                        host_limit = host_limit)
 
-#par(mfrow=c(2,2))
-#plot(cophylo[[1]], col = "orange", lty = "dotted")
-#plot(cophylo[[2]], col = "orange", lty = "dotted")
-#plot(cophylo[[3]], col = "orange", lty = "dotted")
-#plot(cophylo[[4]], col = "orange", lty = "dotted")
-#plot(big_trees[[159]], col = "orange", lty = "dotted")
-
-#par(mfrow=c(1,1))
 
 save <- cophylo
-
-
-#table(cophylo[[1]]$event_history$Event_Type)
-
-
 
 # drop tips that are unassociated
 
@@ -75,7 +139,7 @@ for ( j in 1:length(cophylo)){
   }
   if (length(tip) != 0){
     cophylo[[j]]$unpruned_tree <- cophylo[[j]]$host_tree
-    cophylo[[j]]$host_tree <- drop.tip(cophylo[[j]]$host_tree, tip[,1])
+    cophylo[[j]]$host_tree <- ape::drop.tip(cophylo[[j]]$host_tree, tip[,1])
   }
   cophylo[[j]]$association_mat <- cophylo[[j]]$association_mat[keep,]
 }
@@ -115,29 +179,37 @@ saveRDS(big_trees[[i]], paste0(new_dir, "/trees/tree_", i,"/tree",i,".rData"))
 
 saveRDS(big_trees, paste0(new_dir, "/data/big_tree.rData"))
 
+
+
+}
+
+
+main()
+
 ## total number of assications
 
-for (i in 1:length(big_trees)){
-print(length(which(big_trees[[i]]$association_mat == 1)))
-}
+#for (i in 1:length(big_trees)){
+#print(length(which(big_trees[[i]]$association_mat == 1)))
+#}
 
 
 
-### max associations per host
-for ( i in 1:length(big_trees)){
-  message(paste0("tree ", i))
-  temp <- 0
-for (j in 1:length(big_trees[[i]]$association_mat[,1])){
-temp1 <- length(which(big_trees[[i]]$association_mat[j,] == 1))
+# ### max associations per host
+# for ( i in 1:length(big_trees)){
+#   message(paste0("tree ", i))
+#   temp <- 0
+# for (j in 1:length(big_trees[[i]]$association_mat[,1])){
+# temp1 <- length(which(big_trees[[i]]$association_mat[j,] == 1))
 
-if ( temp1 > temp){
-  temp <- temp1
-}
+# if ( temp1 > temp){
+#   temp <- temp1
+# }
 
-}
+# }
 
-print(temp)
-}
+# print(temp)
+# }
+
 
 
 
